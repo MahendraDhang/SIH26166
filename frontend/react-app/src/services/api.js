@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://sih26166.onrender.com";
 
 export async function uploadImages(image1, image2) {
   const formData = new FormData();
