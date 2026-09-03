@@ -16,7 +16,9 @@ router = APIRouter(
 
 # Project root:
 # D:\SIH26166
-# Render par automatically Linux path banega
+#
+# Render/Linux par bhi automatically project root milega.
+
 BASE_DIR = os.path.dirname(
     os.path.dirname(
         os.path.dirname(
@@ -51,10 +53,13 @@ AI_DIR = os.path.join(
     "AI"
 )
 
+# AI folder ko Python module search path mein add karo.
+# insert(0) ensures AI directory ko priority mile.
 if AI_DIR not in sys.path:
-    sys.path.append(AI_DIR)
+    sys.path.insert(0, AI_DIR)
 
 
+# Import AI pipeline
 from main import run_pipeline
 
 
@@ -157,7 +162,7 @@ async def upload_images(
 
 
         # ----------------------------------------------------
-        # Write files
+        # Write Image 1
         # ----------------------------------------------------
 
         with open(
@@ -169,6 +174,10 @@ async def upload_images(
                 image1_data
             )
 
+
+        # ----------------------------------------------------
+        # Write Image 2
+        # ----------------------------------------------------
 
         with open(
             image2_path,
@@ -271,6 +280,10 @@ async def upload_images(
                 "completed successfully."
             )
 
+
+        # ----------------------------------------------------
+        # Return result
+        # ----------------------------------------------------
 
         return result
 
