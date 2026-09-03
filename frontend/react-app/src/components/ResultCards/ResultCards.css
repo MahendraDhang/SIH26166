@@ -1,0 +1,160 @@
+.result-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+/* MATCH QUALITY CARD */
+
+.match-quality-card {
+  grid-column: 1 / -1;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 22px 25px;
+  min-height: 120px;
+
+  background: #0b1c2e;
+  border: 1px solid #1b3854;
+  border-radius: 12px;
+
+  transition: 0.2s;
+}
+
+.match-quality-card:hover {
+  transform: translateY(-2px);
+  border-color: #315d82;
+}
+
+.quality-left span,
+.confidence-box span {
+  display: block;
+
+  color: #7189a2;
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  font-weight: 700;
+}
+
+.quality-left strong {
+  display: block;
+
+  margin: 10px 0 4px;
+
+  color: #4da3ff;
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+
+.quality-left small {
+  color: #627b95;
+  font-size: 11px;
+}
+
+.confidence-box {
+  text-align: right;
+  padding-left: 30px;
+}
+
+.confidence-box strong {
+  display: block;
+
+  margin-top: 8px;
+
+  color: #4da3ff;
+  font-size: 32px;
+}
+
+
+/* RESULT CARDS */
+
+.result-card {
+  padding: 21px;
+
+  min-height: 130px;
+
+  background: #0b1c2e;
+  border: 1px solid #1b3854;
+  border-radius: 12px;
+
+  transition: 0.2s;
+}
+
+.result-card:hover {
+  transform: translateY(-2px);
+  border-color: #315d82;
+}
+
+.result-card span {
+  display: block;
+
+  color: #7189a2;
+
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  font-weight: 700;
+}
+
+.result-card strong {
+  display: block;
+
+  margin: 14px 0 5px;
+
+  color: #4da3ff;
+
+  font-size: 30px;
+}
+
+.result-card small {
+  color: #627b95;
+
+  font-size: 11px;
+}
+
+
+/* TABLET */
+
+@media (max-width: 850px) {
+  .result-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .match-quality-card {
+    grid-column: 1 / -1;
+  }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 500px) {
+  .result-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .match-quality-card {
+    grid-column: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .confidence-box {
+    text-align: left;
+    padding-left: 0;
+  }
+}
+
+.quality-high {
+  color: #35d07f !important;
+}
+
+.quality-medium {
+  color: #f5b942 !important;
+}
+
+.quality-low {
+  color: #ff6b6b !important;
+}

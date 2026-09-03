@@ -1,0 +1,28 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+Frontend/react-app/dist/
+
+# Environment / Secrets
+.env
+.env.*
+
+# Backend runtime files
+Backend/uploads/
+
+# Generated results
+Result/
+
+# Large Chandrayaan scientific data
+Data/raw/
+Data/chandrayaan/
+*.img
+
+# OS files
+.DS_Store
+Thumbs.db

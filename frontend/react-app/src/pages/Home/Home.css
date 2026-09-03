@@ -1,0 +1,739 @@
+/* =========================================================
+   HOME PAGE
+========================================================= */
+
+.home {
+  min-height: calc(100vh - 72px);
+  color: #f5f9ff;
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.home-hero {
+  width: min(1250px, 92%);
+  min-height: 650px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 30px;
+
+  padding: 80px 0 70px;
+
+  position: relative;
+}
+
+
+/* Hero content */
+
+.hero-content {
+  position: relative;
+  z-index: 5;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 9px 15px;
+
+  border: 1px solid rgba(80, 177, 255, 0.35);
+  border-radius: 30px;
+
+  background: rgba(26, 101, 150, 0.12);
+
+  color: #6fd0ff;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #4ade80;
+
+  box-shadow: 0 0 12px rgba(74, 222, 128, 0.8);
+}
+
+
+.hero-eyebrow {
+  margin: 45px 0 14px;
+
+  color: #7aa6c9;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 3px;
+}
+
+
+.home-hero h1 {
+  margin: 0;
+
+  font-size: clamp(45px, 6vw, 78px);
+
+  line-height: 1.02;
+
+  letter-spacing: -3px;
+
+  font-weight: 800;
+
+  color: #ffffff;
+}
+
+.home-hero h1 span {
+  color: #5bc7ff;
+
+  text-shadow:
+    0 0 30px rgba(65, 190, 255, 0.18);
+}
+
+
+.hero-description {
+  max-width: 670px;
+
+  margin-top: 25px;
+
+  color: #b7c9d9;
+
+  font-size: 16px;
+
+  line-height: 1.8;
+}
+
+
+/* =========================================================
+   MISSION CARDS
+========================================================= */
+
+.mission-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  margin-top: 35px;
+}
+
+.mission-card {
+  min-width: 190px;
+
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  padding: 14px 17px;
+
+  border: 1px solid rgba(96, 169, 215, 0.22);
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(27, 76, 112, 0.65),
+      rgba(10, 27, 46, 0.75)
+    );
+
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.06),
+    0 12px 30px rgba(0, 0, 0, 0.18);
+
+  transition: 0.25s ease;
+}
+
+.mission-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(91, 199, 255, 0.55);
+
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(50, 170, 240, 0.08);
+}
+
+.mission-icon {
+  width: 36px;
+  height: 36px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 10px;
+
+  color: #67d1ff;
+
+  background: rgba(68, 179, 240, 0.12);
+
+  font-size: 17px;
+}
+
+.mission-card strong {
+  display: block;
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  letter-spacing: 0.8px;
+}
+
+.mission-card small {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #9bb2c7;
+
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   SPACE VISUAL
+========================================================= */
+
+.space-visual {
+  height: 500px;
+
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  pointer-events: none;
+}
+
+
+/* Moon */
+
+.moon {
+  width: 245px;
+  height: 245px;
+
+  position: relative;
+  z-index: 3;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #edf4f8 0%,
+      #b9c6ce 35%,
+      #6f7e88 72%,
+      #35424c 100%
+    );
+
+  box-shadow:
+    -25px -15px 50px rgba(255, 255, 255, 0.12),
+    20px 25px 80px rgba(0, 0, 0, 0.65),
+    0 0 70px rgba(92, 190, 240, 0.12);
+}
+
+.moon-crater {
+  position: absolute;
+
+  border-radius: 50%;
+
+  background: rgba(50, 63, 72, 0.25);
+
+  box-shadow:
+    inset 4px 4px 7px rgba(0, 0, 0, 0.15);
+}
+
+.crater-one {
+  width: 42px;
+  height: 42px;
+  top: 45px;
+  left: 65px;
+}
+
+.crater-two {
+  width: 25px;
+  height: 25px;
+  top: 120px;
+  left: 150px;
+}
+
+.crater-three {
+  width: 30px;
+  height: 30px;
+  bottom: 45px;
+  left: 75px;
+}
+
+.crater-four {
+  width: 18px;
+  height: 18px;
+  top: 80px;
+  right: 42px;
+}
+
+
+/* Orbits */
+
+.orbit {
+  position: absolute;
+
+  border: 1px solid rgba(83, 190, 247, 0.2);
+
+  border-radius: 50%;
+
+  transform: rotate(-25deg);
+}
+
+.orbit-one {
+  width: 360px;
+  height: 180px;
+}
+
+.orbit-two {
+  width: 450px;
+  height: 230px;
+
+  transform: rotate(25deg);
+}
+
+.orbit-three {
+  width: 500px;
+  height: 310px;
+
+  border-color: rgba(83, 190, 247, 0.1);
+
+  transform: rotate(-45deg);
+}
+
+
+/* Satellite */
+
+.satellite {
+  width: 22px;
+  height: 22px;
+
+  position: absolute;
+
+  top: 105px;
+  right: 95px;
+
+  z-index: 5;
+
+  border-radius: 50%;
+
+  background: #69d5ff;
+
+  box-shadow:
+    0 0 15px #54c9ff,
+    0 0 40px rgba(70, 190, 255, 0.5);
+}
+
+.satellite::before,
+.satellite::after {
+  content: "";
+
+  position: absolute;
+
+  top: 7px;
+
+  width: 24px;
+  height: 8px;
+
+  background: #273c4b;
+
+  border: 1px solid #5e8197;
+}
+
+.satellite::before {
+  right: 18px;
+}
+
+.satellite::after {
+  left: 18px;
+}
+
+
+/* =========================================================
+   ANALYSIS INTRO
+========================================================= */
+
+.analysis-intro,
+.upload-section,
+.technology-section {
+  width: min(1120px, 90%);
+
+  margin: auto;
+}
+
+
+.analysis-intro {
+  padding: 70px 0 35px;
+}
+
+.section-heading {
+  display: flex;
+
+  gap: 18px;
+
+  align-items: flex-start;
+}
+
+.section-number {
+  color: #58caff;
+
+  font-size: 12px;
+  font-weight: 900;
+
+  padding-top: 7px;
+
+  letter-spacing: 1px;
+}
+
+.section-label {
+  margin: 0 0 10px;
+
+  color: #65caff;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 2.2px;
+}
+
+.section-heading h2,
+.upload-header h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: clamp(25px, 3vw, 38px);
+
+  line-height: 1.2;
+
+  letter-spacing: -1px;
+}
+
+.section-heading h2 span {
+  color: #62ccff;
+}
+
+.section-description,
+.upload-header p {
+  max-width: 680px;
+
+  margin-top: 12px;
+
+  color: #a9bdce;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   PROCESS FLOW
+========================================================= */
+
+.process-flow {
+  display: flex;
+  align-items: center;
+
+  margin-top: 40px;
+
+  padding: 22px;
+
+  border: 1px solid rgba(103, 180, 220, 0.16);
+
+  border-radius: 16px;
+
+  background: rgba(16, 42, 65, 0.5);
+}
+
+.process-step {
+  flex: 1;
+}
+
+.process-step span {
+  color: #56c9ff;
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.process-step strong {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #f4f9fd;
+
+  font-size: 12px;
+}
+
+.process-step small {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #8299ad;
+
+  font-size: 10px;
+}
+
+.process-line {
+  width: 40px;
+  height: 1px;
+
+  background: rgba(86, 201, 255, 0.3);
+}
+
+
+/* =========================================================
+   UPLOAD
+========================================================= */
+
+.upload-section {
+  padding: 55px 0 90px;
+}
+
+.upload-header {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: flex-end;
+
+  margin-bottom: 28px;
+}
+
+.supported-format {
+  text-align: right;
+
+  padding: 12px 17px;
+
+  border: 1px solid rgba(92, 177, 220, 0.18);
+
+  border-radius: 10px;
+
+  background: rgba(18, 45, 67, 0.5);
+}
+
+.supported-format span {
+  display: block;
+
+  color: #708da5;
+
+  font-size: 8px;
+
+  letter-spacing: 1.5px;
+}
+
+.supported-format strong {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #bceaff;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   TECHNOLOGY
+========================================================= */
+
+.technology-section {
+  padding: 80px 0 110px;
+}
+
+.centered {
+  justify-content: center;
+
+  text-align: center;
+}
+
+.centered .section-description {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.technology-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 15px;
+
+  margin-top: 38px;
+}
+
+.technology-card {
+  position: relative;
+
+  padding: 25px 20px;
+
+  border: 1px solid rgba(87, 168, 213, 0.18);
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(25, 67, 98, 0.65),
+      rgba(9, 25, 42, 0.7)
+    );
+
+  transition: 0.25s ease;
+}
+
+.technology-card:hover {
+  transform: translateY(-5px);
+
+  border-color: rgba(86, 201, 255, 0.5);
+}
+
+.tech-number {
+  display: block;
+
+  margin-bottom: 18px;
+
+  color: #4ebff2;
+
+  font-size: 10px;
+
+  font-weight: 800;
+}
+
+.technology-card strong {
+  color: #ffffff;
+
+  font-size: 18px;
+}
+
+.technology-card p {
+  margin-top: 10px;
+
+  color: #91a9bc;
+
+  font-size: 11px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .home-hero {
+    grid-template-columns: 1fr;
+
+    text-align: center;
+
+    padding-top: 65px;
+  }
+
+  .hero-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .mission-info {
+    justify-content: center;
+  }
+
+  .space-visual {
+    height: 360px;
+
+    transform: scale(0.8);
+  }
+
+  .section-heading {
+    justify-content: center;
+  }
+
+  .process-flow {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 16px;
+  }
+
+  .process-line {
+    width: 100%;
+  }
+
+  .technology-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .home-hero {
+    width: 90%;
+
+    padding-top: 45px;
+  }
+
+  .home-hero h1 {
+    font-size: 43px;
+
+    letter-spacing: -2px;
+  }
+
+  .hero-eyebrow {
+    font-size: 9px;
+
+    letter-spacing: 2px;
+  }
+
+  .mission-info {
+    flex-direction: column;
+  }
+
+  .mission-card {
+    width: 100%;
+
+    text-align: left;
+  }
+
+  .space-visual {
+    transform: scale(0.65);
+
+    margin-top: -30px;
+  }
+
+  .upload-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 18px;
+  }
+
+  .supported-format {
+    text-align: left;
+  }
+
+  .technology-grid {
+    grid-template-columns: 1fr;
+  }
+
+}

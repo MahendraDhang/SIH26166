@@ -1,0 +1,89 @@
+.navbar {
+  width: 100%;
+  height: 72px;
+  padding: 0 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #07111f;
+  border-bottom: 1px solid #1b314a;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.satellite-icon {
+  font-size: 28px;
+}
+
+.navbar-logo h2 {
+  margin: 0;
+  font-size: 17px;
+  color: #e8f1ff;
+}
+
+.navbar-logo p {
+  margin: 2px 0 0;
+  font-size: 10px;
+  color: #7189a3;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 35px;
+}
+
+.navbar-links a {
+  color: #91a7bf;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.navbar-links a:hover {
+  color: #4da3ff;
+}
+
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #91a7bf;
+  font-size: 12px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #35d07f;
+  box-shadow: 0 0 8px #35d07f;
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    padding: 0 20px;
+  }
+
+  .navbar-links {
+    display: none;
+  }
+
+  .system-status {
+    display: none;
+  }
+}
+.navbar-links a.active {
+  color: #4da3ff;
+  font-weight: 600;
+}
