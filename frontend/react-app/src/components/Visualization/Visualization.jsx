@@ -1,6 +1,6 @@
 import "./Visualization.css";
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://sih26166.onrender.com";
 
 function Visualization({ result, image1, image2 }) {
   const matchesImage = result?.matches_image
