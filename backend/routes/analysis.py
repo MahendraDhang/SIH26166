@@ -55,7 +55,7 @@ os.makedirs(
 
 AI_DIR = os.path.join(
     BASE_DIR,
-    "AI"
+    "ai"
 )
 
 if not os.path.exists(AI_DIR):
