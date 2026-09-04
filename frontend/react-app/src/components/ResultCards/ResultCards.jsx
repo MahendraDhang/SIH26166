@@ -1,25 +1,30 @@
 import "./ResultCards.css";
 
 function ResultCards({ result }) {
-  const inlierRatio = result?.inlier_ratio ?? null;
+  const inlierRatio =
+    result?.inlier_ratio !== undefined &&
+    result?.inlier_ratio !== null
+      ? Number(result.inlier_ratio)
+      : null;
 
+  // Heuristic match-quality indicator
   let matchQuality = "--";
   let qualityMessage = "Waiting for analysis";
 
   if (inlierRatio !== null) {
     if (inlierRatio >= 0.7) {
       matchQuality = "HIGH";
-      qualityMessage = "Strong correspondence detected";
+      qualityMessage = "Strong geometric consistency";
     } else if (inlierRatio >= 0.4) {
       matchQuality = "MEDIUM";
-      qualityMessage = "Moderate correspondence detected";
+      qualityMessage = "Moderate geometric consistency";
     } else {
       matchQuality = "LOW";
       qualityMessage = "Limited reliable correspondence";
     }
   }
 
-  const confidence =
+  const geometricConsistency =
     inlierRatio !== null
       ? `${(inlierRatio * 100).toFixed(0)}%`
       : "--";
@@ -34,6 +39,11 @@ function ResultCards({ result }) {
       label: "IMAGE 2 KEYPOINTS",
       value: result?.image2_keypoints ?? "--",
       description: "SIFT features",
+    },
+    {
+      label: "CANDIDATE MATCHES",
+      value: result?.candidate_matches ?? "--",
+      description: "BFMatcher candidates",
     },
     {
       label: "GOOD MATCHES",
@@ -52,14 +62,13 @@ function ResultCards({ result }) {
     },
     {
       label: "INLIER RATIO",
-      value:
-        result?.inlier_ratio !== undefined
-          ? `${(result.inlier_ratio * 100).toFixed(0)}%`
-          : "--",
+      value: inlierRatio !== null
+        ? `${(inlierRatio * 100).toFixed(0)}%`
+        : "--",
       description: "Geometric consistency",
     },
     {
-      label: "MEAN ERROR",
+      label: "MEAN REPROJECTION ERROR",
       value:
         result?.mean_reprojection_error !== undefined
           ? Number(result.mean_reprojection_error).toFixed(3)
@@ -67,7 +76,7 @@ function ResultCards({ result }) {
       description: "Reprojection error (px)",
     },
     {
-      label: "MAX ERROR",
+      label: "MAX REPROJECTION ERROR",
       value:
         result?.max_reprojection_error !== undefined
           ? Number(result.max_reprojection_error).toFixed(3)
@@ -80,24 +89,39 @@ function ResultCards({ result }) {
     <div className="result-cards">
 
       {/* MATCH QUALITY */}
+
       <div className="match-quality-card">
 
         <div className="quality-left">
+
           <span>MATCH QUALITY</span>
+
           <strong className={`quality-${matchQuality.toLowerCase()}`}>
-  {matchQuality}
-</strong>
+            {matchQuality}
+          </strong>
+
           <small>{qualityMessage}</small>
+
         </div>
 
+
+        {/* GEOMETRIC CONSISTENCY */}
+
         <div className="confidence-box">
-          <span>CONFIDENCE</span>
-          <strong>{confidence}</strong>
+
+          <span>GEOMETRIC CONSISTENCY</span>
+
+          <strong>{geometricConsistency}</strong>
+
+          <small>Inlier ratio</small>
+
         </div>
 
       </div>
 
+
       {/* PERFORMANCE METRICS */}
+
       {metrics.map((metric) => (
         <div className="result-card" key={metric.label}>
 
