@@ -7,17 +7,12 @@ import os
 # BASE / RESULT DIRECTORIES
 # ============================================================
 
-# Project root:
-# D:\SIH26166
 BASE_DIR = os.path.dirname(
     os.path.dirname(
         os.path.abspath(__file__)
     )
 )
 
-# Result directory:
-# Local  -> D:\SIH26166\Result
-# Render -> /app/Result (automatically)
 RESULT_DIR = os.path.join(
     BASE_DIR,
     "Result"
@@ -48,25 +43,53 @@ REPORT_DIR = os.path.join(
 # CREATE RESULT DIRECTORIES
 # ============================================================
 
-os.makedirs(
-    PREPROCESSED_DIR,
-    exist_ok=True
-)
+os.makedirs(PREPROCESSED_DIR, exist_ok=True)
+os.makedirs(MATCH_DIR, exist_ok=True)
+os.makedirs(HOMOGRAPHY_DIR, exist_ok=True)
+os.makedirs(REPORT_DIR, exist_ok=True)
 
-os.makedirs(
-    MATCH_DIR,
-    exist_ok=True
-)
 
-os.makedirs(
-    HOMOGRAPHY_DIR,
-    exist_ok=True
-)
+# ============================================================
+# IMAGE RESIZE FOR FAST PROCESSING
+# ============================================================
 
-os.makedirs(
-    REPORT_DIR,
-    exist_ok=True
-)
+MAX_PROCESS_SIZE = 1600
+
+
+def resize_for_processing(image):
+    """
+    Resize image while preserving aspect ratio.
+    Images smaller than MAX_PROCESS_SIZE are not enlarged.
+    """
+
+    height, width = image.shape[:2]
+
+    max_dimension = max(
+        height,
+        width
+    )
+
+    if max_dimension <= MAX_PROCESS_SIZE:
+        return image
+
+    scale = (
+        MAX_PROCESS_SIZE /
+        max_dimension
+    )
+
+    new_width = int(
+        width * scale
+    )
+
+    new_height = int(
+        height * scale
+    )
+
+    return cv2.resize(
+        image,
+        (new_width, new_height),
+        interpolation=cv2.INTER_AREA
+    )
 
 
 # ============================================================
@@ -99,7 +122,20 @@ def run_pipeline(image1_path, image2_path):
 
 
     # ========================================================
-    # 2. PREPROCESSING
+    # 2. RESIZE FOR FAST PROCESSING
+    # ========================================================
+
+    image1 = resize_for_processing(
+        image1
+    )
+
+    image2 = resize_for_processing(
+        image2
+    )
+
+
+    # ========================================================
+    # 3. PREPROCESSING
     # ========================================================
 
     gray1 = cv2.cvtColor(
@@ -127,11 +163,36 @@ def run_pipeline(image1_path, image2_path):
 
 
     # ========================================================
-    # 3. SIFT FEATURE EXTRACTION
+    # 4. SAVE PREPROCESSED IMAGES
+    # ========================================================
+
+    preprocessed1_output = os.path.join(
+        PREPROCESSED_DIR,
+        "image1_preprocessed.jpg"
+    )
+
+    preprocessed2_output = os.path.join(
+        PREPROCESSED_DIR,
+        "image2_preprocessed.jpg"
+    )
+
+    cv2.imwrite(
+        preprocessed1_output,
+        processed1
+    )
+
+    cv2.imwrite(
+        preprocessed2_output,
+        processed2
+    )
+
+
+    # ========================================================
+    # 5. SIFT FEATURE EXTRACTION
     # ========================================================
 
     sift = cv2.SIFT_create(
-        nfeatures=10000,
+        nfeatures=5000,
         contrastThreshold=0.04,
         edgeThreshold=10,
         sigma=1.6
@@ -154,7 +215,7 @@ def run_pipeline(image1_path, image2_path):
 
 
     # ========================================================
-    # 4. BF MATCHING
+    # 6. BF MATCHING
     # ========================================================
 
     bf = cv2.BFMatcher(
@@ -169,7 +230,7 @@ def run_pipeline(image1_path, image2_path):
 
 
     # ========================================================
-    # 5. LOWE RATIO TEST
+    # 7. LOWE RATIO TEST
     # ========================================================
 
     good_matches = []
@@ -188,7 +249,7 @@ def run_pipeline(image1_path, image2_path):
 
 
     # ========================================================
-    # 6. MATCH VISUALIZATION
+    # 8. MATCH VISUALIZATION
     # ========================================================
 
     match_image = cv2.drawMatches(
@@ -213,7 +274,7 @@ def run_pipeline(image1_path, image2_path):
 
 
     # ========================================================
-    # 7. NOT ENOUGH MATCHES
+    # 9. NOT ENOUGH MATCHES
     # ========================================================
 
     if len(good_matches) < 4:
@@ -229,41 +290,57 @@ def run_pipeline(image1_path, image2_path):
                 f"At least 4 matches are required "
                 f"for geometric verification.",
 
-            "image1_keypoints": len(kp1),
+            "image1_keypoints":
+                len(kp1),
 
-            "image2_keypoints": len(kp2),
+            "image2_keypoints":
+                len(kp2),
 
-            "candidate_matches": len(matches),
+            "candidate_matches":
+                len(matches),
 
-            "good_matches": len(good_matches),
+            "good_matches":
+                len(good_matches),
 
-            "inliers": 0,
+            "inliers":
+                0,
 
-            "outliers": len(good_matches),
+            "outliers":
+                len(good_matches),
 
-            "inlier_ratio": 0.0,
+            "inlier_ratio":
+                0.0,
 
-            "mean_reprojection_error": 0.0,
+            "mean_reprojection_error":
+                0.0,
 
-            "min_reprojection_error": 0.0,
+            "min_reprojection_error":
+                0.0,
 
-            "max_reprojection_error": 0.0,
+            "max_reprojection_error":
+                0.0,
 
-            "matches_image": match_output,
+            "matches_image":
+                match_output,
 
-            "inliers_image": None,
+            "inliers_image":
+                None,
 
-            "aligned_image": None
+            "aligned_image":
+                None
         }
 
 
     # ========================================================
-    # 8. MATCH POINTS
+    # 10. MATCH POINTS
     # ========================================================
 
     src_pts = np.float32([
+
         kp1[m.queryIdx].pt
+
         for m in good_matches
+
     ]).reshape(
         -1,
         1,
@@ -271,8 +348,11 @@ def run_pipeline(image1_path, image2_path):
     )
 
     dst_pts = np.float32([
+
         kp2[m.trainIdx].pt
+
         for m in good_matches
+
     ]).reshape(
         -1,
         1,
@@ -281,7 +361,7 @@ def run_pipeline(image1_path, image2_path):
 
 
     # ========================================================
-    # 9. HOMOGRAPHY + GEOMETRIC VERIFICATION
+    # 11. HOMOGRAPHY + GEOMETRIC VERIFICATION
     # ========================================================
 
     H, mask = cv2.findHomography(
@@ -301,31 +381,44 @@ def run_pipeline(image1_path, image2_path):
                 "Feature matching completed, "
                 "but geometric verification failed.",
 
-            "image1_keypoints": len(kp1),
+            "image1_keypoints":
+                len(kp1),
 
-            "image2_keypoints": len(kp2),
+            "image2_keypoints":
+                len(kp2),
 
-            "candidate_matches": len(matches),
+            "candidate_matches":
+                len(matches),
 
-            "good_matches": len(good_matches),
+            "good_matches":
+                len(good_matches),
 
-            "inliers": 0,
+            "inliers":
+                0,
 
-            "outliers": len(good_matches),
+            "outliers":
+                len(good_matches),
 
-            "inlier_ratio": 0.0,
+            "inlier_ratio":
+                0.0,
 
-            "mean_reprojection_error": 0.0,
+            "mean_reprojection_error":
+                0.0,
 
-            "min_reprojection_error": 0.0,
+            "min_reprojection_error":
+                0.0,
 
-            "max_reprojection_error": 0.0,
+            "max_reprojection_error":
+                0.0,
 
-            "matches_image": match_output,
+            "matches_image":
+                match_output,
 
-            "inliers_image": None,
+            "inliers_image":
+                None,
 
-            "aligned_image": None
+            "aligned_image":
+                None
         }
 
 
@@ -333,7 +426,7 @@ def run_pipeline(image1_path, image2_path):
 
 
     # ========================================================
-    # 10. INLIERS / OUTLIERS
+    # 12. INLIERS / OUTLIERS
     # ========================================================
 
     inliers = int(
@@ -351,7 +444,7 @@ def run_pipeline(image1_path, image2_path):
 
 
     # ========================================================
-    # 11. INLIER VISUALIZATION
+    # 13. INLIER VISUALIZATION
     # ========================================================
 
     inlier_matches = [
@@ -387,7 +480,7 @@ def run_pipeline(image1_path, image2_path):
 
 
     # ========================================================
-    # 12. IMAGE ALIGNMENT
+    # 14. IMAGE ALIGNMENT
     # ========================================================
 
     height, width = processed2.shape[:2]
@@ -413,7 +506,7 @@ def run_pipeline(image1_path, image2_path):
 
 
     # ========================================================
-    # 13. REPROJECTION ERROR
+    # 15. REPROJECTION ERROR
     # ========================================================
 
     projected = cv2.perspectiveTransform(
@@ -457,19 +550,18 @@ def run_pipeline(image1_path, image2_path):
     else:
 
         mean_error = 0.0
-
         min_error = 0.0
-
         max_error = 0.0
 
 
     # ========================================================
-    # 14. FINAL RESULT
+    # 16. FINAL RESULT
     # ========================================================
 
     return {
 
-        "status": "success",
+        "status":
+            "success",
 
         "image1_keypoints":
             len(kp1),
